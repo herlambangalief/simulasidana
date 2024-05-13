@@ -6,7 +6,7 @@
                     <tr>
                         <td>Target Dana</td>
                         <td>
-                            <%= form.number_field :target_dana,class: "form-control", value: 10000000%>
+                            <%= form.number_field :target_dana,class: "form-control", required: true%>
                         </td>
                     </tr>
                     <tr>
@@ -18,11 +18,11 @@
                     </tr>
                     <tr>
                         <td>Setoran awal</td>
-                        <td><%= form.number_field :saldo,class: "form-control", value: 2600000 %></td>
+                        <td><%= form.number_field :saldo,class: "form-control", required: true %></td>
                     </tr>
                     <tr>
                         <td>Setoran</td>
-                        <td><%= form.number_field :setoran,class: "form-control", value: 700000 %></td>
+                        <td><%= form.number_field :setoran,class: "form-control", required: true %></td>
                     </tr>
                     <tr>
                         <td>Bunga %</td>
