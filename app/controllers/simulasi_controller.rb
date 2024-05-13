@@ -4,14 +4,14 @@ require 'active_support/core_ext/integer/time'
 
 
     def index
-        @data_simulasi = session[:simulasi]
-        session[:simulasi] = nil
+        @data_simulasi = Dana.all
         @admin = 5000;
     end
 
     
 
     def create
+        Dana.delete_all
         target = params[:target_dana].to_f
         saldo = params[:saldo].to_f
         periode = params[:periode].to_i
@@ -22,8 +22,7 @@ require 'active_support/core_ext/integer/time'
         bulan = 0
         data_simulasi = []
 
-        max_iterations = 12  # Batasi jumlah iterasi untuk menghindari overflow
-        while saldo < target && bulan < periode && bulan < max_iterations
+        while saldo < target
             setoran_bulan_ini = bulan == 0 ? 0 : setoran
             bunga_bulanan = bunga * (saldo + setoran_bulan_ini)
             pajak_bunga = 0.2 * bunga_bulanan
@@ -31,17 +30,28 @@ require 'active_support/core_ext/integer/time'
             saldo += setoran_bulan_ini + bunga_bulanan - pajak_bunga - admin
             bulan += 1
             tanggal_sekarang = tanggal_pembukaan + bulan.months
+            kondisi = if bulan < periode
+                        1
+                      elsif bulan == periode
+                        2
+                      else
+                        3
+                      end
             data_simulasi << {
                 tanggal: tanggal_sekarang, 
                 saldo_sebelumnya: saldo_sebelumnya,
                 setoran: setoran_bulan_ini, 
                 bunga: bunga_bulanan, 
                 pajak_bunga: pajak_bunga, 
-                saldo: saldo
+                saldo: saldo,
+                kondisi: kondisi
             }
+            break if bulan > periode
         end
 
-        session[:simulasi] = data_simulasi
+        data_simulasi.each do |data|
+        Dana.create(data)
+        end
         redirect_to action: :index
     end
 

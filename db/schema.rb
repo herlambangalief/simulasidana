@@ -12,14 +12,13 @@
 
 ActiveRecord::Schema[7.1].define(version: 2024_05_13_021342) do
   create_table "danas", force: :cascade do |t|
-    t.integer "target_dana"
-    t.integer "periode"
+    t.date "tanggal"
+    t.float "saldo_sebelumnya"
     t.float "setoran"
-    t.float "saldo"
     t.float "bunga"
     t.float "pajak_bunga"
-    t.float "saldo_akhir"
-    t.date "tanggal_pembukaan"
+    t.float "saldo"
+    t.integer "kondisi"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

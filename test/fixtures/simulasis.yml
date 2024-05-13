@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tanggal: 2024-05-13
+  saldo_sebelumnya: 1.5
+  setoran: 1.5
+  bunga: 1.5
+  pajak_bunga: 1.5
+  saldo: 1.5
+
+two:
+  tanggal: 2024-05-13
+  saldo_sebelumnya: 1.5
+  setoran: 1.5
+  bunga: 1.5
+  pajak_bunga: 1.5
+  saldo: 1.5
