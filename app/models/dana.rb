@@ -1,0 +1,2 @@
+class Dana < ApplicationRecord
+end

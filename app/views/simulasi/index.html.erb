@@ -1,0 +1,92 @@
+<div class="container">
+    <center>
+        <h1>Form Input Data</h1>
+            <%= form_with url: inputdata_path, method: :post, multipart: true do |form| %>
+                <table>
+                    <tr>
+                        <td>Target Dana</td>
+                        <td>
+                            <%= form.number_field :target_dana,class: "form-control", value: 10000000%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Periode</td>
+                        <td>
+                        <%= form.select :periode, options_for_select([['3 bulan', 3],['6 bulan', 6],['12 bulan', 12],['2 tahun', 24],['3 tahun',
+                            36],['4 tahun', 48],['5 tahun', 60]], 12), {} , { class: 'form-control', id: 'periode' }  %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Setoran awal</td>
+                        <td><%= form.number_field :saldo,class: "form-control", value: 2600000 %></td>
+                    </tr>
+                    <tr>
+                        <td>Setoran</td>
+                        <td><%= form.number_field :setoran,class: "form-control", value: 700000 %></td>
+                    </tr>
+                    <tr>
+                        <td>Bunga %</td>
+                        <td><%= form.number_field :bunga,class: "form-control", value: 3 , readonly: true, id: 'bunga' %></td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal pembukaan rekening</td>
+                        <td><%= form.date_field :tanggal_pembukaan,class: "form-control", value: Date.today %></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <%= form.submit 'Simpan' , class: 'btn btn-primary mt-4 col-md-12' %>
+                        </td>
+                    </tr>
+                </table>
+            <% end %>
+    </center>
+    <div class="container row col-md-12">
+        <% if @data_simulasi.present? %>
+              <% @data_simulasi.each do |item| %>
+                <table class="card col-md-3 mt-4 custom-col-md-6">
+                    <tr>
+                        <td colspan="2">
+                            <%= Date.parse(item['tanggal']).strftime("%d %B %Y") %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Saldo</td>
+                        <td>
+                            <%= number_with_precision(item['saldo_sebelumnya'], precision: 2, delimiter: ',' , separator: '.' ) %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Setoran</td>
+                        <td>
+                            <%= number_with_precision(item['setoran'], precision: 2, delimiter: ',' , separator: '.' ) %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bunga</td>
+                        <td>
+                            <%= number_with_precision(item['bunga'], precision: 2, delimiter: ',' , separator: '.' ) %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pajak Bunga</td>
+                        <td>
+                            <%= number_with_precision(item['pajak_bunga'], precision: 2, delimiter: ',' , separator: '.' ) %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Biaya Admin</td>
+                        <td>
+                            <%= number_with_precision(@admin, precision: 2, delimiter: ',' , separator: '.' ) %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Saldo Akhir</td>
+                        <td>
+                            <%= number_with_precision(item['saldo'], precision: 2, delimiter: ',' , separator: '.' ) %>
+                        </td>
+                    </tr>
+                </table>
+            <% end %>
+        <% end %>
+    </div>
+</div>

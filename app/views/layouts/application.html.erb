@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simulasi</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .custom-col-md-6 td {
+          width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const periode = document.getElementById('periode');
+      const bunga = document.getElementById('bunga');
+
+      function active() {
+          bunga.readOnly = true;
+      }
+
+      periode.addEventListener('change', function() {
+          bunga.readOnly = false;
+          switch (parseInt(periode.value)) {
+              case 3:
+                  bunga.value = 0.75;
+                  active();
+                  break;
+              case 6:
+                  bunga.value = 1.5;
+                  active();
+                  break;
+              case 12:
+                  bunga.value = 3;
+                  active();
+                  break;
+              case 24:
+                  bunga.value = 6;
+                  active();
+                  break;
+              case 36:
+                  bunga.value = 9;
+                  active();
+                  break;
+              case 48:
+                  bunga.value = 12;
+                  active();
+                  break;
+              case 60:
+                  bunga.value = 15;
+                  active();
+                  break;
+              default:
+                  bunga.value = '';
+                  active();
+                  break;
+          }
+      });
+  });
+  </script>
+</html>
