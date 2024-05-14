@@ -7,7 +7,7 @@ class CreateDanas < ActiveRecord::Migration[7.1]
       t.float :bunga
       t.float :pajak_bunga
       t.float :saldo
-      t.integer :kondisi
+      t.string :kondisi
 
       t.timestamps
     end

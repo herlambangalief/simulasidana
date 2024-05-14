@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_13_021342) do
     t.float "bunga"
     t.float "pajak_bunga"
     t.float "saldo"
-    t.integer "kondisi"
+    t.string "kondisi"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

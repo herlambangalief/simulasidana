@@ -6,35 +6,36 @@
                     <tr>
                         <td>Target Dana</td>
                         <td>
-                            <%= form.number_field :target_dana,class: "form-control", value: 10000000 , required: true%>
+                            <%= form.number_field :target_dana,class: "form-control", value: @target, required: true%>
                         </td>
                     </tr>
                     <tr>
                         <td>Periode</td>
                         <td>
                         <%= form.select :periode, options_for_select([['3 bulan', 3],['6 bulan', 6],['12 bulan', 12],['2 tahun', 24],['3 tahun',
-                            36],['4 tahun', 48],['5 tahun', 60]], 12), {} , { class: 'form-control', id: 'periode' }  %>
+                            36],['4 tahun', 48],['5 tahun', 60]],@periode), {} , { class: 'form-control', id: 'periode' }  %>
                         </td>
                     </tr>
                     <tr>
                         <td>Setoran awal</td>
-                        <td><%= form.number_field :saldo,class: "form-control", value: 2600000 ,required: true %></td>
+                        <td><%= form.number_field :saldo,class: "form-control", value: @saldo ,required: true %></td>
                     </tr>
                     <tr>
                         <td>Setoran</td>
-                        <td><%= form.number_field :setoran,class: "form-control", value: 700000 ,required: true %></td>
+                        <td><%= form.number_field :setoran,class: "form-control", value: @setoran ,required: true %></td>
                     </tr>
                     <tr>
                         <td>Bunga %</td>
-                        <td><%= form.number_field :bunga,class: "form-control", value: 3 , readonly: true, id: 'bunga' %></td>
+                        <td><%= form.number_field :bunga,class: "form-control", value: @bunga , readonly: true, id: 'bunga' %></td>
                     </tr>
                     <tr>
                         <td>Tanggal pembukaan rekening</td>
-                        <td><%= form.date_field :tanggal_pembukaan,class: "form-control", value: Date.today %></td>
+                        <td><%= form.date_field :tanggal_pembukaan,class: "form-control", value: @tanggal_pembukaan %></td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <%= form.submit 'Simpan' , class: 'btn btn-primary mt-4 col-md-12' %>
+                            <%= form.submit 'Simpan' , class: 'btn btn-primary col-md-12 mt-3' %>
+                            <%= link_to 'Reset' , resetdata_path,class: 'btn btn-warning col-md-12' %>
                         </td>
                     </tr>
                 </table>
@@ -43,7 +44,7 @@
     <div class="container row col-md-12">
         <% if @data_simulasi.present? %>
               <% @data_simulasi.each do |item| %>
-                <table class="card <%= 'bg-success text-white' if item.kondisi == 2 %> <%= 'bg-danger text-white' if item.kondisi == 3 %> col-md-3 mt-4 custom-col-md-6">
+                <table class="card <%= 'bg-info text-white' if item.kondisi == 'time_period' %> <%= 'bg-success text-white' if item.kondisi == 'target_success' %> <%= 'bg-warning text-white' if item.kondisi == 'after_period' %> <%= 'bg-danger text-white' if item.kondisi == 'target_fail' %> col-md-3 mt-4 custom-col-md-6">
                     <tr>
                         <td colspan="2">
                             <%= item.tanggal.strftime("%d %B %Y") %>
@@ -88,5 +89,10 @@
                 </table>
             <% end %>
         <% end %>
+        <% if notice.present? %>
+            <div class="bg-danger text-white col-md-12 p-3 mt-3">
+                <center><h4><%= notice %></h4></center>
+            </div>
+        <%end%>
     </div>
 </div>
